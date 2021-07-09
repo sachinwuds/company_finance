@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 # from api.services.otp import OtpService
-from .serializers import CompanySerializer,CompanyWithoutEmployeeSerializer,EmpployeeSerializer
+from .serializers import CompanySerializer,CompanyWithoutEmployeeSerializer,EmpployeeSerializer,EmpSerializer
 from .models import Company, Employee,Salary,Incomemanagement,Investments
 from webapp import serializers
 
@@ -19,6 +19,14 @@ class CompanyView(APIView):
     def get(self, request, format=None):
         commpany = Company.objects.all()
         serializer = CompanySerializer(commpany,many=True)
+        return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
+    
+class EmployeeView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format=None):
+        employee = Employee.objects.all()
+        serializer = EmpSerializer(employee,many=True)
         return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
         
 class CompanyWithoutEmployeeView(APIView):

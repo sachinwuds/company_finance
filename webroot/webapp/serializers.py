@@ -17,11 +17,24 @@ class CompanySerializer(serializers.ModelSerializer):
         Employee_count = Employee.objects.filter(company_id=obj.id).count()
         return Employee_count
 
+class EmpSerializer(serializers.ModelSerializer):
+    company_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Employee
+        fields = (
+            'id','name','company_name','emp_id','designation','experience'
+            )
+
+    def get_company_name(self,obj):
+        company = Company.objects.get(id=obj.company_id.id)
+        return company.company_name 
+
 class CompanyWithoutEmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = (
-            'id','company_name'
+            'id','company_name' 
             )
     
 class EmpployeeSerializer(serializers.ModelSerializer):
