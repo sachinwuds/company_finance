@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 # from api.services.otp import OtpService
-from .serializers import CompanySerializer,CompanyWithoutEmployeeSerializer
-from .models import Company, Employee
+from .serializers import CompanySerializer,CompanyWithoutEmployeeSerializer,EmpployeeSerializer
+from .models import Company, Employee,Salary,Incomemanagement,Investments
 from webapp import serializers
 
 
@@ -47,7 +47,21 @@ class HighestmfView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, format=None):
-        employee = Employee.objects.values_list('company_id').distinct()
-        company_emp = Company.objects.all().exclude(id__in= employee)
-        serializer = CompanyWithoutEmployeeSerializer(company_emp,many=True)
+        investments = Investments.objects.all().order_by("-mf").first()
+        data = {}
+        emp_instance = Employee.objects.get(emp_id=investments.emp_id)
+
+        serializer = EmpployeeSerializer(emp_instance)
+        return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
+
+
+class GoldInvestmentView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format=None):
+        investments = Investments.objects.all().order_by("-gold").first()
+        data = {}
+        emp_instance = Employee.objects.get(emp_id=investments.emp_id)
+
+        serializer = EmpployeeSerializer(emp_instance)
         return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})

@@ -24,3 +24,9 @@ class CompanyWithoutEmployeeSerializer(serializers.ModelSerializer):
             'id','company_name'
             )
     
+class EmpployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = (
+            'id','emp_id','name'
+            )
