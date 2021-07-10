@@ -55,7 +55,7 @@ class Incomemanagement(models.Model):
     emp_id = models.OneToOneField(Employee, on_delete=models.CASCADE, blank=True, null=True,)
     savings = models.IntegerField( blank=True,  null=True)
     investments = models.IntegerField(blank=True,  null=True)
-    growth_rate = models.IntegerField(blank=True,  null=True)
+    growth_rate = models.IntegerField(blank=True,  null=True) 
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True,)
     updated = models.DateTimeField(auto_now=True, blank=True, null=True,)
     
