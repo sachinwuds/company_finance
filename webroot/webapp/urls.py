@@ -19,6 +19,10 @@ urlpatterns = [
     path('experiance-income/', views.ExperianceIncomeView.as_view() ),
     path('employees-ranking/<str:emp_id>/', views.EmployeesRankingView.as_view() ),
     path('high-investor/', views.HighInvestorView.as_view() ), 
+    path('earning-percentage/<int:pk>/', views.EarningPercentageView.as_view() ), 
+    path('employee-money-in-repuees/<int:pk>/', views.EmployeeMoneyView.as_view() ), 
+    path('employee-all-detail/<int:pk>/', views.EmployeeAllDetailView.as_view() ), 
+    
     # path('all-companies1/', views.getallview ),
 
 ]

@@ -148,3 +148,27 @@ class HighInvestorView(APIView):
             data.append(serializer.data)
         return Response({"data": data, "code": status.HTTP_200_OK, "message": "OK"})
 
+class EarningPercentageView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk, format=None):
+        company = Company.objects.get(id=pk)
+        serializer = EarningPercentageSerializer(company)
+        return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
+
+class EmployeeMoneyView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk, format=None):
+        company = Employee.objects.get(id=pk)
+        serializer = EmployeeMoneySerializer(company)
+        return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
+
+class EmployeeAllDetailView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, pk, format=None):
+        company = Employee.objects.get(id=pk)
+        serializer = EmployeeAllDetailSerializer(company)
+        return Response({"data": serializer.data, "code": status.HTTP_200_OK, "message": "OK"})
+
